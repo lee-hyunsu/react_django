@@ -15,6 +15,39 @@ export default class CreateRoomPage extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            guestCanPause: true,
+            votesToSkip: this.defaultVotes,
+        };
+        this.handleRoomButtonPressed = this.handleRoomButtonPressed.bind(this);
+        this.handleVotesChange = this.handleVotesChange.bind(this);
+        this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
+    }
+
+    handleVotesChange(e){
+        this.setState({
+            votesToSkip: e.target.value,
+        });
+    }
+
+    handleGuestCanPauseChange(e){
+        this.setState({
+            guestCanPause: e.target.value === "true" ? true : false,
+        });
+    }
+
+    handleRoomButtonPressed(){
+        const requestOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                votes_to_skip: this.state.votesToSkip,
+                guest_can_pause: this.state.guestCanPause,
+            }),
+        };
+        fetch("/api/create-room", requestOptions)
+            .then((response) => response.json())
+            .then((data) => console.log(data));
     }
 
     render() {
@@ -32,7 +65,10 @@ export default class CreateRoomPage extends Component {
                             Guest Control of Playback State
                         </div>
                     </FormHelperText>
-                    <RadioGroup row defaultValue="true">
+                    <RadioGroup 
+                        row defaultValue="true" 
+                        onChange={this.handleGuestCanPauseChange}
+                    >
                         <FormControlLabel 
                             value="true" 
                             control={<Radio color="primary" />}
@@ -52,7 +88,8 @@ export default class CreateRoomPage extends Component {
                 <FormControl>
                     <TextField 
                         required={true} 
-                        type="number" 
+                        type="number"
+                        onChange={this.handleVotesChange}
                         defaultValue={this.defaultVotes}
                         inputProps={{
                             min: 1,
@@ -67,13 +104,17 @@ export default class CreateRoomPage extends Component {
                 </FormControl>
             </Grid>
             <Grid item xs={12} align="center">
-                <Button color="primary" variant="contained">
+                <Button 
+                    color="primary" 
+                    variant="contained" 
+                    onClick={this.handleRoomButtonPressed}
+                >
                     Create A Room
                 </Button>
             </Grid>
             <Grid item xs={12} align="center">
                 <Button 
-                    color="primary" 
+                    color="secondary" 
                     variant="contained" 
                     to="/" 
                     component={Link}>
