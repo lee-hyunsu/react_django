@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RoomJoinPage from "./RoomJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
 import Room from './Room';
+import { Grid, Button, ButtonGroup, Typography } from '@material-ui/core';
 import {
     BrowserRouter as Router, 
     Switch, 
@@ -13,6 +14,14 @@ import {
 export default class HomePage extends Component {
     constructor(props) {
         super(props);
+    }
+
+    renderHomePage(){
+        return(
+            <Grid container spacing={3}>
+                
+            </Grid>
+        );
     }
 
     render() {
