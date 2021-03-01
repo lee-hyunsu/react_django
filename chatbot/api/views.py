@@ -29,6 +29,20 @@ class GetRoom(APIView):
         
         return Response({'Bad Request': 'Code parmater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
 
+class JoinRoom(APIView):
+    lookup_url_kwarg = 'code'
+    
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        code = request.data.get(self.lookup_url_kwarg)
+        if code != None:
+            room_Result = Room.objects.filter(code=code)
+            if len(room_result) > 0:
+                room = room_result[0]
+                return Response({'message' : 'Room Joined!'}, status=status.HTTP_200_OK)
+
 class CreateRoomView(APIView):
     serializer_class = CreateRoomSerializer
 
