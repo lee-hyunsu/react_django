@@ -8,7 +8,9 @@ export default class RoomJonPage extends Component {
         this.state={
             roomCode: "",
             error: "hello"
-        }
+        };
+        this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
+        this.roomButtonPressed = this.roomButtonPressed.bind(this);
     }
 
     render() {
@@ -27,15 +29,26 @@ export default class RoomJonPage extends Component {
                         value={this.state.roomCode}
                         helperText={this.state.error}
                         variant="outlined"
-                    />
+                        onChange={this.handleTextFieldChange}
+                    /> 
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <Button variant="contained" color="primary" to="/" component={Link}>Enter Room</Button>
+                    <Button variant="contained" color="primary" onClick={this.roomButtonPressed}>Enter Room</Button>
                 </Grid>
                 <Grid item xs={12} align="center">
-                    <Button variant="contained" color="primary" to="/" component={Link}>Back</Button>
+                    <Button variant="contained" color="secondary" to="/" component={Link}>Back</Button>
                 </Grid>
             </Grid>
         );
+    }
+
+    handleTextFieldChange(e){
+        this.setState({
+            roomCode: e.target.value,
+        });
+    }
+
+    roomButtonPressed(){
+        console.log(this.state.roomCode);
     }
 }
