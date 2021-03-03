@@ -19,7 +19,8 @@ export default class HomePage extends Component {
     renderHomePage(){
         return(
             <Grid container spacing={3}>
-                
+                <Grid item xs={12} align="center"></Grid>
+                <Grid item xs={12} align="center"></Grid>
             </Grid>
         );
     }
