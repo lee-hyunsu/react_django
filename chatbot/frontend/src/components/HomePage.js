@@ -27,10 +27,10 @@ export default class HomePage extends Component {
                 <Grid item xs={12} align="center">
                     <ButtonGroup disableElevation variant="contained" color="primary">
                         <Button color="primary" to='/join' component={Link}>
-                            Join a Room
+                            JOIN A ROOM
                         </Button>
                         <Button color="secondary" to='/create' component={Link}>
-                            Create a Room
+                            CREATE A ROOM
                         </Button>
                     </ButtonGroup>
                 </Grid>
@@ -43,7 +43,7 @@ export default class HomePage extends Component {
         <Router>
             <Switch>
                 <Route exact path='/'>
-                    <p>This is the home page</p>
+                    {this.renderHomePage()}
                 </Route>
                 <Route path='/join' component={RoomJoinPage} />
                 <Route path='/create' component={CreateRoomPage} />
