@@ -86,3 +86,8 @@ class UserInRoom(APIView):
             'code' : self.request.session.get('room_code')
         }
         return JsonResponse(data, status=status.HTTP_200_OK)
+
+class LeaveRoom(APIView):
+    def post(self, request, format=None):
+        if 'room_code' in self.request.session:
+            code = self.request.session.pop('room_code')
